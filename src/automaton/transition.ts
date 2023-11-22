@@ -7,17 +7,15 @@ import {isChar, isDigit} from "../utils/index";
 
 export default function Transition(state: States, input: string){
 
-   const currentState = state;
-
    switch(state){
       case States.q0:
-         if(isDigit(input)){
-            return States.q3
-         }
-         else if(isChar(input)){
+          if(isChar(input)){
             return States.q1
          }
-         else if(" ") {
+         else if(isDigit(input)){
+            return States.q3
+         }
+         else if(input === "" || input === " ") {
             return States.q0
          } 
          else{
@@ -28,19 +26,18 @@ export default function Transition(state: States, input: string){
          if(isChar(input)){
             return States.q1
          }
-         else if(input === "" || input === " "){
-            return States.q2
+         else if(isDigit(input)){
+            return States.q3
          }
-         else{
-            console.error(`unrecognized char: ${input}`)
-            exit(1)
-         }
-      case States.q2:
-
+         else if(input === "" || input === " ") {
+            return States.q0
+         } 
       case States.q3:
-
-      case States.q4:
+         if(isDigit(input)){
+            return States.q3
+         }
+         else if(isChar(input)){
+            return States.q1
+         }
    }
 }
-
-// Transition(States.q0, "%")

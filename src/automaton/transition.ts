@@ -6,6 +6,7 @@ import {isChar, isDigit} from "../utils/index";
 // definition fn Transition δ( Q, input ) => ( Q )
 
 export default function Transition(state: States, input: string){
+   let currentState: States = state;
 
    switch(state){
       case States.q0:
@@ -15,7 +16,7 @@ export default function Transition(state: States, input: string){
          else if(isDigit(input)){
             return States.q3
          }
-         else if(input === "" || input === " ") {
+         else if(input === "") {
             return States.q0
          } 
          else{
@@ -29,7 +30,7 @@ export default function Transition(state: States, input: string){
          else if(isDigit(input)){
             return States.q3
          }
-         else if(input === "" || input === " ") {
+         else if(input === "") {
             return States.q0
          } 
       case States.q3:
@@ -39,5 +40,10 @@ export default function Transition(state: States, input: string){
          else if(isChar(input)){
             return States.q1
          }
+         else if(input === ""){
+            return States.q0
+         }
    }
+
+   return currentState;
 }
